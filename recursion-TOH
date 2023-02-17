@@ -1,0 +1,26 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    void ToH(char source, char dest, char inter, int n){
+        if(n==0){
+            return;
+        }
+        
+      ToH(source,inter,dest,n-1);
+        cout<< "Move disk " << n<< " from rod "<< source<< " to rod "<< dest<<endl;
+      ToH(inter,dest,source,n-1);
+    }
+    
+int main() {
+    int n;
+    cin>>n;
+    ToH('A','C','B',n);
+    return 0;
+}
