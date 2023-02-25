@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+class CircularQueue {
+private:
+    int *arr;
+    int front;
+    int rear;
+    int capacity;
+
+public:
+    CircularQueue(int size) {
+        arr = new int[size];
+        capacity = size;
+        front = -1;
+        rear = -1;
+    }
+
+    ~CircularQueue() {
+        delete[] arr;
+    }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    bool isFull() {
+        return (rear + 1) % capacity == front;
+    }
+
+    void enqueue(int value) {
+        if (isFull()) {
+            cout << "overflow" << endl;
+            return;
+        }
+
+        if (isEmpty()) {
+            front = 0;
+        }
+
+        rear = (rear + 1) % capacity;
+        arr[rear] = value;
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "underflow" << endl;
+            return;
+        }
+
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % capacity;
+        }
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "underflow" << endl;
+            return;
+        }
+
+        int i = front;
+        while (i != rear) {
+            cout << arr[i] << " ";
+            i = (i + 1) % capacity;
+        }
+        cout << arr[rear] << endl;
+    }
+};
+
+int main() {
+    int size, choice, value;
+    cin >> size;
+    CircularQueue cq(size);
+
+    while (true) {
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cin >> value;
+                cq.enqueue(value);
+                break;
+            case 2:
+                cq.dequeue();
+                break;
+            case 3:
+                cq.display();
+                break;
+            case 0:
+                exit(0);
+            default:
+                cout << "Invalid choice." << endl;
+        }
+    }
+
+    return 0;
+}
