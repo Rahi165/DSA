@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+class Queue {
+private:
+    int* arr;
+    int front;
+    int rear;
+    int size;
+
+public:
+    Queue(int size) {
+        arr = new int[size];
+        front = -1;
+        rear = -1;
+        this->size = size;
+    }
+
+    bool isFull() {
+        return (rear == size - 1);
+    }
+
+    bool isEmpty() {
+        return (front == -1 || front > rear);
+    }
+
+    void enqueue(int value) {
+        if (isFull()) {
+            cout << "overflow" << endl;
+        }
+        else {
+            if (front == -1) {
+                front = 0;
+            }
+            rear++;
+            arr[rear] = value;
+            //cout << value << " enqueued to queue." << endl;
+        }
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "underflow" << endl;
+        }
+        else {
+           // cout << arr[front] << endl;
+            front++;
+        }
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "underflow" << endl;
+        }
+        else {
+           
+            for (int i = front; i <= rear; i++) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    int size, choice, value;
+    cin >> size;
+
+    Queue q(size);
+
+    do {
+     
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cin >> value;
+            q.enqueue(value);
+            break;
+
+        case 2:
+            q.dequeue();
+            break;
+
+        case 3:
+            q.display();
+            break;
+
+        case 0:
+            break;
+
+        default:
+            cout << "Invalid choice!" << endl;
+            break;
+        }
+
+    } while (choice != 0);
+
+    return 0;
+}
