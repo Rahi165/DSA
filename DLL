@@ -1,0 +1,132 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+class node{
+   public:
+    int data;
+    node *lptr;
+    node *rptr;
+    
+    node(int d){
+        this->data=d;
+        this->lptr=NULL;
+        this->rptr=NULL;
+    }
+};
+class list{
+    public:
+     node *l;
+     node *r;
+    
+    list(){
+        this->l=NULL;
+        this->r=NULL;
+        
+    }
+void front(int data){
+    node *temp=new node(data);
+    if(l==NULL){
+        
+        l=temp;
+        r=temp;
+        return;
+    }
+    temp->rptr=l;
+    l->lptr=temp;
+    l=temp;
+    
+}
+
+void insert_end(int data){
+    node *temp=new node(data);
+    if(l==NULL){
+        l=temp;
+        r=temp;
+        return;
+    }
+    temp->lptr=r;
+    r->rptr=temp;
+    r=temp;
+}
+
+void delete_front(){
+    if(l==NULL){
+         cout<<"No node in the list to delete";
+    }
+    if(l==r){
+        l=r=NULL;
+        return;
+    }
+    l=l->rptr;
+    l->lptr=NULL;
+}
+
+void delete_end(){
+    if(r==NULL){
+        cout<<"No node in the list to delete";
+    }
+    if(l==r){
+        l=r=NULL;
+        return;
+    }
+    r=r->lptr;
+    r->rptr=NULL;
+    
+}
+
+void display(){
+    node *temp=l;
+    while(temp!=NULL){
+        cout<<temp->data << " ";
+        temp=temp->rptr;
+    }
+    cout<<endl;
+    
+    
+}
+};
+int main() {
+    list nl;
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    while(true){
+    int ch,x;
+    cin>>ch;
+    if(ch==0){
+        break;
+    }
+    
+    switch(ch){
+            
+        case 1:
+            cin>>x;
+            nl.front(x);             
+            break;
+        
+        case 2:
+            cin>>x;
+            nl.insert_end(x);
+            break;
+        
+        case 3:
+            nl.delete_front();
+            break;
+        
+        case 4:
+            nl.delete_end();
+            break;
+            
+        case 5:
+            nl.display();
+            break;
+        
+            
+    }
+            
+    }
+    
+    return 0;
+}
